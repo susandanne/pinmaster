@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input class="form-control" type="text" id="randomValue">
+                    <button class="generate-btn" onclick=" random()">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input class="form-control" type="text" id="Display">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                                <div class="button" onclick="Number(7) ">7</div>
+                                <div class="button" onclick="Number(8) ">8</div>
+                                <div class="button" onclick="Number(9) ">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button" onclick="Number(4) ">4</div>
+                                <div class="button" onclick="Number(5) ">5</div>
+                                <div class="button" onclick="Number(6) ">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button" onclick="Number(1) ">1</div>
+                                <div class="button" onclick="Number(2) ">2</div>
+                                <div class="button" onclick="Number(3) ">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button" onclick="back() ">
+                                    <</div>
+                                        <div class="button" onclick="Number(0) ">0</div>
+                                        <div class="button" onclick="c() ">C</div>
+                                </div>
+                                <div>
+                                    <button type="submit" class="submit-btn" id="submit" onclick="result()">Submit</button>
+                                    <p class="action-left"><span id="minusvalue">3</span> try left</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notify-section">
+                    <p class="notify" id="NotMatch">❌ Pin Didn't Match, Please try again</p>
+                    <p class="notify" id="Match">✅ Pin Matched... Secret door is opening for you</p>
+                    <p class="notify" id="try">⚠️ Please verify again.... Secret door is opening for you</p>
+                </div>
+            </div>
+
+
+            <script>
+                function random() {
+                    let randInput = Math.random(10)
+                    let rnumber = randInput.toFixed(4)
+                    let codegenerate = rnumber.substring(8, 2);
+                    document.getElementById("randomValue").value = codegenerate;
+                }
+
+                function Number(Num) {
+                    document.getElementById('Display').value = document.getElementById('Display').value + Num
+
+                }
+
+                function c() {
+                    document.getElementById('Display').value = ""
+                }
+
+                function back() {
+                    var backClear= document.getElementById('Display').value;
+                    document.getElementById('Display').value = backClear.substring(0, backClear.length - 1);
+                }
+
+
+
+                function result() {
+                    var Verify = document.getElementById('randomValue').value
+                    var submit = document.getElementById('Display').value
+
+                    if (Verify == submit) {
+                        document.getElementById('Match').style.display = "block";
+                        document.getElementById('NotMatch').style.display = "none";
+                    } else {
+                        document.getElementById('Match').style.display = "none";
+                        document.getElementById('NotMatch').style.display = "block";
+                    }
+                    minusvalue = document.getElementById('minusvalue').innerText--;
+                    total = parseInt(minusvalue);
+                    document.getElementById('minusvalue').value = total;
+                    if (total == !0) {
+                        document.getElementById('NotMatch').style.display = "none";
+                        document.getElementById('Match').style.display = "none";
+                        document.getElementById('submit').disabled = true;
+                        document.getElementById('try').style.display = "block";
+                    }
+                }
+            </script>
+
+</body>
+
+</html>
